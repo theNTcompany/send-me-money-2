@@ -1,6 +1,7 @@
 use crate::app::Route;
 use gloo_net::http::Request;
 use wasm_bindgen::prelude::wasm_bindgen;
+use web_sys::HtmlInputElement;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
@@ -26,6 +27,7 @@ pub fn index() -> Html {
     }
 
     let balance = use_state(|| Option::<String>::None);
+    let amount_input = use_node_ref();
 
     {
         let balance = balance.clone();
@@ -47,7 +49,35 @@ pub fn index() -> Html {
         );
     }
 
-    let onsubmit = { Callback::from(|event: SubmitEvent| event.prevent_default()) };
+    let onsubmit = {
+        let amount_input = amount_input.clone();
+        let balance = balance.clone();
+        Callback::from(move |event: SubmitEvent| {
+            let amount_input = amount_input.clone();
+            let balance = balance.clone();
+            event.prevent_default();
+
+            let amount = match amount_input.cast::<HtmlInputElement>() {
+                Some(input) => input.value(),
+                None => "0".into(),
+            };
+
+            // TODO: send value to backend
+
+            wasm_bindgen_futures::spawn_local(async move {
+                log(&format!("{}", amount));
+                let result = Request::post("/api/send")
+                    .header("Authorization", &get_password().unwrap_or("".into()))
+                    .body(format!("{{\"amount\": {}}}", amount))
+                    .send()
+                    .await;
+
+                if let Ok(result) = result && let Ok(result) = result.text().await {
+                    balance.set(Some(result))
+                }
+            });
+        })
+    };
 
     html!(
         <AppLayout>
@@ -62,7 +92,7 @@ pub fn index() -> Html {
                         }
                     }
                 </p>
-                <input placeholder="Amount" />
+                <input placeholder="Amount" ref={amount_input} />
                 <button type="submit">{ "Send" }</button>
             </form>
         </AppLayout>
