@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "apps/*"
+]
+
+[profile.release]
+strip = true
+lto = true
