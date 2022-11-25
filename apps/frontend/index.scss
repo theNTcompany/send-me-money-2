@@ -1,0 +1,45 @@
+@import "reset";
+
+.nav__wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  padding: 1rem 2rem;
+
+  background: #379DFA;
+
+  nav {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  h2 {
+    font-weight: bold;
+    font-size: 2rem;
+
+    text-transform: uppercase;
+  }
+}
+
+.sign-in__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  width: 100%;
+
+  padding: min(15vh, 16rem);
+
+  h1 {
+    padding-bottom: 1rem;
+
+    font-size: 2.5rem;
+  }
+
+  input {
+    outline: none;
+  }
+}
