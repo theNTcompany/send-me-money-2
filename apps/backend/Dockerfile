@@ -11,7 +11,9 @@ FROM alpine
 WORKDIR /app
 
 RUN addgroup -S backend && adduser -S backend -G backend
-COPY --from=builder --chown=backend:backend --chmod=550 /build/target/release/backend /app/backend
+COPY --from=builder /build/target/release/backend /app/backend
+RUN chmod 550 /app/backend
+RUN chown backend:backend /app/backend
 
 USER backend:backend
 
