@@ -1,20 +1,20 @@
-use wasm_bindgen::prelude::*;
-use web_sys::console::log_1;
-use web_sys::{window, HtmlInputElement};
+use web_sys::HtmlInputElement;
 use yew::prelude::*;
+use yew_router::prelude::*;
 
+use crate::app::Route;
 use crate::components::layout::*;
-
-#[wasm_bindgen]
-extern "C" {
-    #[wasm_bindgen(js_namespace = console)]
-    pub fn log(s: &str);
-}
+use crate::utils::password::{get_password, set_password};
 
 #[function_component(SignIn)]
 pub fn sign_in() -> Html {
     let password_input = use_node_ref();
     let incorrect_password = use_state(|| false);
+    let navigator = use_navigator().unwrap();
+
+    if let Some(password) = get_password() && password == "password123" {
+        navigator.push(&Route::Dashboard);
+    }
 
     let onsubmit = {
         let password_input = password_input.clone();
@@ -32,22 +32,9 @@ pub fn sign_in() -> Html {
                 return incorrect_password.set(true);
             }
 
-            let local_storage = match window() {
-                Some(window) => match window.local_storage() {
-                    Ok(local_storage) => local_storage,
-                    Err(_) => None,
-                },
-                None => None,
-            };
+            set_password(&password);
 
-            let result = match local_storage {
-                Some(storage) => storage.set_item("password", &password),
-                None => Err(JsValue::from("Clould not save password into local storage")),
-            };
-
-            if let Err(error) = result {
-                log_1(&error);
-            }
+            navigator.push(&Route::Dashboard);
         })
     };
 
@@ -55,8 +42,12 @@ pub fn sign_in() -> Html {
         <AppLayout>
             <form {onsubmit} class="sign-in__form">
                 <h1>{ "Sign in!" }</h1>
-                <input type="password" placeholder="Password" ref={password_input} />
-                { *incorrect_password }
+                <div>
+                    <input type="password" placeholder="Password" ref={password_input} />
+                    if *incorrect_password {
+                        <p class="sign-in__error">{ "Incorrect password!" }</p>
+                    }
+                </div>
                 <button type="submit">{ "Sign in" }</button>
             </form>
         </AppLayout>

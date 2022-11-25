@@ -1,6 +1,7 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 
+use crate::routes::dashboard::*;
 use crate::routes::index::*;
 use crate::routes::sign_in::*;
 
@@ -10,12 +11,15 @@ pub enum Route {
     Home,
     #[at("/sign/in")]
     SignIn,
+    #[at("/dashboard")]
+    Dashboard,
 }
 
 fn switch(routes: Route) -> Html {
     match routes {
         Route::Home => html!(<Index />),
         Route::SignIn => html!(<SignIn />),
+        Route::Dashboard => html!(<Dashboard />),
     }
 }
 

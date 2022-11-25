@@ -1,5 +1,3 @@
-@import "reset";
-
 .nav__wrapper {
   display: flex;
   align-items: center;
@@ -30,16 +28,44 @@
   gap: 1rem;
 
   width: 100%;
+  max-width: 200px;
 
-  padding: min(15vh, 16rem);
+  padding: min(15vh, 16rem) 0 0;
+  margin: auto;
 
   h1 {
     padding-bottom: 1rem;
 
     font-size: 2.5rem;
   }
+}
 
-  input {
+input {
+  border-bottom: #a5abb670 solid 1px;
+
+  margin: 0;
+  transition: border-bottom-color 0.3s;
+
+  &:focus-visible {
     outline: none;
+    border-bottom-color: #565b64;
   }
+}
+
+button {
+  width: 100%;
+
+  padding: 0.5rem;
+
+  background-color: #379dfa !important;
+  border-radius: 1rem;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: lighten(#379dfa, 5%) !important;
+  }
+}
+
+.sign-in__error {
+  color: #e33c3c;
 }
