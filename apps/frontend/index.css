@@ -6,19 +6,19 @@
   padding: 1rem 2rem;
 
   background: #379DFA;
+}
 
-  nav {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-  }
+.nav__wrapper nav {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
 
-  h2 {
-    font-weight: bold;
-    font-size: 2rem;
+.nav__wrapper h2 {
+  font-weight: bold;
+  font-size: 2rem;
 
-    text-transform: uppercase;
-  }
+  text-transform: uppercase;
 }
 
 .generic__form {
@@ -32,12 +32,12 @@
 
   padding: min(15vh, 16rem) 0 0;
   margin: auto;
+}
 
-  h1 {
-    padding-bottom: 1rem;
+.generic__form h1 {
+  padding-bottom: 1rem;
 
-    font-size: 2.5rem;
-  }
+  font-size: 2.5rem;
 }
 
 input {
@@ -45,11 +45,11 @@ input {
 
   margin: 0;
   transition: border-bottom-color 0.3s;
+}
 
-  &:focus-visible {
-    outline: none;
-    border-bottom-color: #565b64;
-  }
+input:focus-visible {
+  outline: none;
+  border-bottom-color: #565b64;
 }
 
 button {
@@ -60,10 +60,9 @@ button {
   background-color: #379dfa !important;
   border-radius: 1rem;
   transition: background-color 0.3s;
-
-  &:hover {
-    background-color: lighten(#379dfa, 5%) !important;
-  }
+}
+button:hover {
+  background-color: lighten(#379dfa, 5%) !important;
 }
 
 .sign-in__error {
