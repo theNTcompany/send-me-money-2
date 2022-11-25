@@ -1,0 +1,11 @@
+
+title: Send me money
+
+flags:
+  - name: 1000000
+    description: Get $1 000 000 balance
+    points: 10
+    identifier: million
+    type: 1
+    placeholder: flag1
+    maximumTries: 2

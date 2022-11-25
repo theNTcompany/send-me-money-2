@@ -1,8 +1,7 @@
-use crate::{Authorization, Balances};
+use crate::{Authorization, Balances, Flag};
 use rocket::serde::json::Json;
 use rocket::State;
 use serde::Deserialize;
-use std::env;
 use std::sync::atomic::Ordering;
 
 #[derive(Responder)]
@@ -21,9 +20,10 @@ pub(crate) struct SendBody {
 
 #[post("/send", data = "<amount>")]
 pub(crate) fn send<'r>(
-    balances: &State<Balances>,
-    auth: Authorization,
     amount: Json<SendBody>,
+    auth: Authorization,
+    balances: &State<Balances>,
+    flag: &State<Flag>,
 ) -> SendResponses {
     if !auth.value.eq("password123") {
         return SendResponses::Unauthorized("".into());
@@ -38,7 +38,7 @@ pub(crate) fn send<'r>(
     balances.bob.store(bobs_bal + amount, Ordering::Relaxed);
 
     if my_bal - amount >= 1000000 {
-        return SendResponses::Ok(env::var("HAXAGON_FLAG").unwrap_or("haxagon{1000000}".into()));
+        return SendResponses::Ok(flag.flag.clone());
     }
 
     SendResponses::Ok(balances.me.load(Ordering::Relaxed).to_string())

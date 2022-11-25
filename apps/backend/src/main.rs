@@ -6,6 +6,7 @@ use crate::routes::send::*;
 use rocket::http::Status;
 use rocket::request::{FromRequest, Outcome};
 use rocket::Request;
+use std::fs::read_to_string;
 use std::sync::atomic::AtomicI32;
 
 pub(crate) mod routes;
@@ -13,6 +14,10 @@ pub(crate) mod routes;
 pub(crate) struct Balances {
     pub(crate) me: AtomicI32,
     pub(crate) bob: AtomicI32,
+}
+
+pub(crate) struct Flag {
+    pub(crate) flag: String,
 }
 
 #[derive(Debug)]
@@ -45,13 +50,18 @@ impl<'r> FromRequest<'r> for Authorization {
 
 #[launch]
 fn rocket() -> _ {
-    rocket::build()
+    let flag = read_to_string("/tmp/flags/flag.txt").unwrap_or("haxagon{1000000}".into());
+
+    let rocket = rocket::build()
         .manage(Balances {
             me: AtomicI32::new(10),
             bob: AtomicI32::new(1000000),
         })
+        .manage(Flag { flag })
         .mount("/", routes![get_balance])
-        .mount("/", routes![send])
+        .mount("/", routes![send]);
+    println!("SCENARIO_IS_READY");
+    rocket
 }
 
 #[cfg(feature = "")]
