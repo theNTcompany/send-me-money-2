@@ -3,7 +3,7 @@ RUN apk add --no-cache musl-dev upx
 
 WORKDIR /build
 COPY . .
-RUN cargo build --release
+RUN cargo build --release -p backend
 RUN upx --best --lzma ./target/release/backend
 
 FROM alpine

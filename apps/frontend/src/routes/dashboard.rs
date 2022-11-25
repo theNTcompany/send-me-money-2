@@ -47,18 +47,24 @@ pub fn index() -> Html {
         );
     }
 
+    let onsubmit = { Callback::from(|event: SubmitEvent| event.prevent_default()) };
+
     html!(
         <AppLayout>
-            <h1>
-                { "Balance: "}
-                {
-                    if let Some(balance) = &*balance {
-                        &balance
-                    } else {
-                        "Loading..."
+            <form {onsubmit} class="generic__form">
+                <p style="width: 100%;">
+                    { "Balance: "}
+                    {
+                        if let Some(balance) = &*balance {
+                            &balance
+                        } else {
+                            "Loading..."
+                        }
                     }
-                }
-            </h1>
+                </p>
+                <input placeholder="Amount" />
+                <button type="submit">{ "Send" }</button>
+            </form>
         </AppLayout>
     )
 }

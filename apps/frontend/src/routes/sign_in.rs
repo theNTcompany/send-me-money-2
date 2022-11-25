@@ -40,7 +40,7 @@ pub fn sign_in() -> Html {
 
     html!(
         <AppLayout>
-            <form {onsubmit} class="sign-in__form">
+            <form {onsubmit} class="generic__form">
                 <h1>{ "Sign in!" }</h1>
                 <div>
                     <input type="password" placeholder="Password" ref={password_input} />
