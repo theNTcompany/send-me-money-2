@@ -1,9 +1,12 @@
 
 title: Send me money
 
+description: DESCRIPTION.md
+handbook: HANDBOOK.md
+
 flags:
-  - name: 1000000
-    description: Get $1 000 000 balance
+  - name: $1.000.000
+    description: Get $1.000.000 balance
     points: 10
     identifier: million
     type: 1
