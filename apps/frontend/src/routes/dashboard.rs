@@ -62,8 +62,6 @@ pub fn index() -> Html {
                 None => "0".into(),
             };
 
-            // TODO: send value to backend
-
             wasm_bindgen_futures::spawn_local(async move {
                 log(&format!("{}", amount));
                 let result = Request::post("/api/send")
