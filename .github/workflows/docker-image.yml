@@ -19,6 +19,6 @@ jobs:
        username: ${{ github.actor }}
        password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build the Docker images
-      run: docker-compose build
+      run: DOCKER_BUILDKIT=1 docker-compose build
     - name: Deploy the Docker images
       run: docker-compose push
