@@ -1,5 +1,6 @@
 FROM rust:alpine as builder
 RUN apk add --no-cache musl-dev upx
+RUN apk add mold --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
 
 WORKDIR /build
 COPY . .

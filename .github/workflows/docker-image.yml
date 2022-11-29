@@ -16,7 +16,7 @@ jobs:
       id: cache-docker
       uses: actions/cache@v3
       with:
-        path: /home/runner/.docker/buildkit
+        path: /var/lib/docker/buildkit
         key: ${{ runner.os }}-docker-${{ hashFiles('**/Cargo.lock') }}
         restore-keys: |
             ${{ runner.os }}-docker-
