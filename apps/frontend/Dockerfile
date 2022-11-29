@@ -1,5 +1,7 @@
 FROM rust:alpine as builder
-RUN apk add --no-cache musl-dev
+RUN apk add --no-cache musl-dev clang
+RUN apk add --no-cache mold openssl --repository=https://dl-cdn.alpinelinux.org/alpine/v3.17/community --repository=https://dl-cdn.alpinelinux.org/alpine/v3.17/main
+
 RUN rustup toolchain install nightly
 RUN rustup default nightly
 RUN rustup target add wasm32-unknown-unknown

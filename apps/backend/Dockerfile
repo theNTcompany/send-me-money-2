@@ -1,5 +1,6 @@
 FROM rust:alpine as builder
-RUN apk add --no-cache musl-dev upx
+RUN apk add --no-cache musl-dev upx clang
+RUN apk add --no-cache mold openssl --repository=https://dl-cdn.alpinelinux.org/alpine/v3.17/community --repository=https://dl-cdn.alpinelinux.org/alpine/v3.17/main
 
 WORKDIR /build
 COPY . .
