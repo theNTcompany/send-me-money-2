@@ -12,6 +12,6 @@ services:
     build:
       context: .
       dockerfile: apps/frontend/Dockerfile
-    image: ghcr.io/thentcompany/send-me-money-backend:latest
+    image: ghcr.io/thentcompany/send-me-money-frontend:latest
     ports:
       - '80:80'
