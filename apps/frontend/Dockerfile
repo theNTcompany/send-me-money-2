@@ -16,7 +16,7 @@ COPY --from=builder /build/apps/frontend/dist /usr/share/nginx/html
 COPY ./apps/frontend/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
-LABEL org.opencontainers.image.source = "https://github.com/theNTcompany/send-me-money"
+LABEL org.opencontainers.image.source = "https://github.com/theNTcompany/send-me-money-frontend"
 
 CMD ["nginx", "-g", "daemon off;"]
 

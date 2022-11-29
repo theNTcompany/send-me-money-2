@@ -1,17 +1,17 @@
 version: '2.1'
 
 services:
-  backend:
+  send-me-money-backend:
     build:
       context: .
       dockerfile: apps/backend/Dockerfile
-    image: ghcr.io/thentcompany/send-me-money:backend
+    image: ghcr.io/thentcompany/send-me-money-backend:latest
     volumes:
       - './flags:/tmp/flags'
-  frontend:
+  send-me-money-frontend:
     build:
       context: .
       dockerfile: apps/frontend/Dockerfile
-    image: ghcr.io/thentcompany/send-me-money:frontend
+    image: ghcr.io/thentcompany/send-me-money-backend:latest
     ports:
       - '80:80'
