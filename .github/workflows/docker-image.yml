@@ -6,12 +6,25 @@ on:
 
 jobs:
 
-  build:
+  docker:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
+    - name: Cache docker
+      id: cache-docker
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-docker
+      with:
+        path: /home/runner/.docker/buildkit
+        key: ${{ runner.os }}-docker-${{ hashFiles('**/Cargo.lock') }
+        restore-keys: |
+            ${{ runner.os }}-docker-${{ env.cache-name }}-
+            ${{ runner.os }}-docker-
+            ${{ runner.os }}-
+
     - name: Log in to the Container registry
       uses: docker/login-action@v2
       with:
