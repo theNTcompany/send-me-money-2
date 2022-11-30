@@ -19,3 +19,13 @@ pub fn heart_icon() -> Html {
         </svg>
     )
 }
+
+#[function_component(ForwardIcon)]
+pub fn forward_icon() -> Html {
+    // ion:chevron-forward-sharp
+    html!(
+        <svg width="16" height="16" viewBox="0 0 512 512">
+            <path fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10" stroke-width="48" d="m184 112l144 144l-144 144"/>
+        </svg>
+    )
+}

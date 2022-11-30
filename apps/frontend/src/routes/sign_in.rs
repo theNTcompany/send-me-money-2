@@ -40,10 +40,10 @@ pub fn sign_in() -> Html {
 
     html!(
         <AppLayout>
-            <form {onsubmit} class="generic__form px-8 py-8 md:px-16 flex flex-col w-full">
+            <form {onsubmit} class="px-8 py-8 md:px-16 flex flex-col w-full">
                 // TODO: add an art :)
                 <div class="w-full md:ml-auto md:pr-64 md:w-auto">
-                    <h1 class="font-2xl font-bold">{ "Sign in!" }</h1>
+                    <h1 class="text-2xl font-bold">{ "Sign in!" }</h1>
                     <div class="pt-4">
                         <input type="password" placeholder="Password" ref={password_input} class="bg-gray py-2 px-4 placeholder:text-white rounded-xl w-full sm:w-auto" />
                         if *incorrect_password {

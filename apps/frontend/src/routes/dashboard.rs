@@ -5,6 +5,7 @@ use web_sys::HtmlInputElement;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
+use crate::components::icons::*;
 use crate::components::layout::*;
 use crate::utils::password::get_password;
 
@@ -70,7 +71,7 @@ pub fn index() -> Html {
                     .send()
                     .await;
 
-                if let Ok(result) = result && let Ok(result) = result.text().await {
+                if let Ok(result) = result && result.status() == 200 && let Ok(result) = result.text().await {
                     balance.set(Some(result))
                 }
             });
@@ -79,19 +80,40 @@ pub fn index() -> Html {
 
     html!(
         <AppLayout>
-            <form {onsubmit} class="generic__form">
-                <p style="width: 100%;">
-                    { "Balance: "}
-                    {
-                        if let Some(balance) = &*balance {
-                            &balance
-                        } else {
-                            "Loading..."
+            <form {onsubmit} class="px-8 py-8 md:px-16 flex flex-col w-full">
+                <div class="flex flex-row items-center border-2 border-solid border-blue px-4 py-2">
+                    <div>
+                        <p class="font-semibold">{ "Savings account" }</p>
+                        <p class="text-sm font-light">{ "1234567890/1337" }</p>
+                    </div>
+                    <p class="ml-auto">
+                        { "$" }
+                        {
+                            if let Some(balance) = &*balance {
+                                &balance
+                            } else {
+                                "Loading..."
+                            }
                         }
-                    }
-                </p>
-                <input placeholder="Amount" ref={amount_input} />
-                <button type="submit">{ "Send" }</button>
+                    </p>
+                </div>
+                <p class="font-bold mt-8">{ "Counterparty" }</p>
+                <div class="flex flex-row items-center border-2 border-solid border-blue px-4 py-2">
+                    <div>
+                        <p class="font-semibold">{ "William Smith" }</p>
+                        <p class="text-sm font-light">{ "1111111111/1337" }</p>
+                    </div>
+                    <div class="ml-auto cursor-not-allowed">
+                        <ForwardIcon />
+                    </div>
+                </div>
+                <div class="mt-32 flex flex-col">
+                    <p>{ "Amount (USD)" }</p>
+                    <input class="text-right bg-light-gray border border-solid border-b-blue px-4 pt-2 rounded-t" ref={amount_input} />
+                    <div class="ml-auto mt-4">
+                        <button class="px-8 py-2 bg-dark-blue hover:bg-blue transition-colors duration-300 rounded-xl" type="submit">{ "Send" }</button>
+                    </div>
+                </div>
             </form>
         </AppLayout>
     )
