@@ -1,14 +1,14 @@
 version: '2.1'
 
 services:
-  send-me-money-backend:
+  backend:
     build:
       context: .
       dockerfile: apps/backend/Dockerfile
     image: ghcr.io/thentcompany/send-me-money-backend:latest
     volumes:
       - './flags:/tmp/flags'
-  send-me-money-frontend:
+  frontend:
     build:
       context: .
       dockerfile: apps/frontend/Dockerfile
