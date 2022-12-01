@@ -1,6 +1,7 @@
 # Send me money
 [![](https://img.shields.io/badge/-haxagon-9228e6)](https://haxagon.cz)  
 An entry level cybersecurity challenge based on math principles, so no web development / hacking knowledge is needed.
+<!-- A change to test send-me-money-2 upstream ci -->
 
 ## Deploying
 This challenge can be deployed on [haxagon](https://haxagon.cz) (closed beta) or it can be started with docker-compose.
