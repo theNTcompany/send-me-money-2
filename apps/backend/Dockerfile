@@ -20,6 +20,6 @@ USER backend:backend
 ENV ROCKET_ADDRESS=0.0.0.0
 
 EXPOSE 8000
-LABEL org.opencontainers.image.source = "https://github.com/theNTcompany/send-me-money"
+LABEL org.opencontainers.image.source = "https://github.com/theNTcompany/send-me-money-2"
 
 ENTRYPOINT ["/app/backend"]
