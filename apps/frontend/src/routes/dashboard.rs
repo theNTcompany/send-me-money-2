@@ -28,6 +28,7 @@ pub fn index() -> Html {
     }
 
     let balance = use_state(|| Option::<String>::None);
+    let amount_err = use_state(|| false);
     let amount_input = use_node_ref();
 
     {
@@ -52,16 +53,25 @@ pub fn index() -> Html {
 
     let onsubmit = {
         let amount_input = amount_input.clone();
+        let amount_err = amount_err.clone();
         let balance = balance.clone();
         Callback::from(move |event: SubmitEvent| {
             let amount_input = amount_input.clone();
+            let amount_err = amount_err.clone();
             let balance = balance.clone();
             event.prevent_default();
+            amount_err.set(false);
 
             let amount = match amount_input.cast::<HtmlInputElement>() {
                 Some(input) => input.value(),
                 None => "0".into(),
             };
+
+            let amount_num = amount.to_string().parse::<i32>();
+            if amount_num.unwrap_or(-1) < 0 {
+                amount_err.set(true);
+                return
+            }
 
             wasm_bindgen_futures::spawn_local(async move {
                 log(&format!("{}", amount));
@@ -110,6 +120,9 @@ pub fn index() -> Html {
                 <div class="mt-32 flex flex-col">
                     <p>{ "Amount (USD)" }</p>
                     <input class="text-right bg-light-gray border border-solid border-b-blue px-4 pt-2 rounded-t" ref={amount_input} />
+                    if *amount_err {
+                        <p class="text-warning">{ "Invalid amount!" }</p>
+                    }
                     <div class="ml-auto mt-4">
                         <button class="px-8 py-2 bg-dark-blue hover:bg-blue transition-colors duration-300 rounded-xl" type="submit">{ "Send" }</button>
                     </div>
