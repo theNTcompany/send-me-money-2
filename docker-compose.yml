@@ -5,13 +5,13 @@ services:
     build:
       context: .
       dockerfile: apps/backend/Dockerfile
-    image: ghcr.io/thentcompany/send-me-money-backend-2:latest
+    image: ghcr.io/thentcompany/send-me-money-2-backend:latest
     volumes:
       - './flags:/tmp/flags'
   frontend:
     build:
       context: .
       dockerfile: apps/frontend/Dockerfile
-    image: ghcr.io/thentcompany/send-me-money-frontend-2:latest
+    image: ghcr.io/thentcompany/send-me-money-2-frontend:latest
     ports:
       - '80:80'
