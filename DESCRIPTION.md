@@ -10,4 +10,5 @@ test the amount validation? Your password is still `password123`.
 <if ip=false>
   To open the challenge, you need to start the challenge first.
 </if>
+
 Don't forget to connect to haxagon VPN!
